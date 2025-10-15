@@ -1,16 +1,18 @@
-# Make 'src' importable without tricky packages
-import pathlib, sys
-sys.path.append(str(pathlib.Path(__file__).resolve().parents[1] / "src"))
-
+import math
 import pytest
-from increment import inc
+from src.increment import increment
 
-def test_inc_happy_path():
-    assert inc(4) == 5
-
+def test_increment_happy_path():
+    assert increment(4) == 5
 
 @pytest.mark.parametrize("bad", ["4", None, {}, []])
-def test_inc_type_errors(bad):
+def test_increment_type_errors(bad):
     with pytest.raises(TypeError):
-        inc(bad)
+        increment(bad)
+
+@pytest.mark.parametrize("bad_float", [math.inf, -math.inf, math.nan])
+def test_increment_rejects_non_finite(bad_float):
+    with pytest.raises(ValueError):
+        increment(bad_float)
+
 
