@@ -1,20 +1,49 @@
 version: 2.1
 
 jobs:
-  build:
+  test-lab02:
     docker:
-      - image: python:3.8
+      - image: cimg/python:3.11
+    working_directory: ~/project
     steps:
       - checkout
+
+      # Work inside the lab folder only
       - run:
-          name: Install dependencies
-          command: pip install -r requirements.txt
+          name: Show layout
+          command: |
+            pwd
+            ls -la
+            echo "Entering lab folder…"
       - run:
-          name: Run tests
-          command: pytest Unit_Tests.py 
+          name: Enter lab folder
+          working_directory: labs/lab-02-unit-testing
+          command: |
+            pwd
+            ls -la
+
+      # Install exactly what the lab needs
+      - run:
+          name: Upgrade pip & install test deps
+          working_directory: labs/lab-02-unit-testing
+          command: |
+            python -m pip install --upgrade pip
+            if [ -f requirements.txt ]; then
+              pip install -r requirements.txt
+            else
+              pip install pytest pytest-cov
+            fi
+
+      # Run pytest only for this lab, with the right PYTHONPATH
+      - run:
+          name: Run pytest (lab-02-unit-testing only)
+          working_directory: labs/lab-02-unit-testing
+          environment:
+            PYTHONPATH: ./src
+          command: |
+            pytest -q --maxfail=1 tests
 
 workflows:
-  version: 2
-  build:
+  lab02-workflow:
     jobs:
-      - build
+      - test-lab02
