@@ -1,7 +1,7 @@
 import pandas as pd 
 import matplotlib.pyplot as plt
 
-#load the dataset with semicolon delimiter
+#load the dataset with semicolon delimiters allowing seperate values
 election_data_df = pd.read_csv("us_election/US-2016-primary.csv")
 election_data_df.fillna(0, inplace=True) #fill missing values with 0
 candidate = "Donald Trump"
