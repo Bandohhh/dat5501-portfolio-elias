@@ -3,53 +3,49 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 
-# --- 1. Load and Clean Data ---
-# The CSV filename is assumed to be in your working directory
-filename = 'HistoricalData_1762772785970.csv'
+# Load the CSV using your specified filename
+palantir_price_data_df = pd.read_csv('HistoricalData_1762772785970.csv')
 
-df = pd.read_csv(filename)
+# Sort dates in ascending order and parse dates
+palantir_price_data_df['Date'] = pd.to_datetime(palantir_price_data_df['Date'], format='%m/%d/%Y')
+palantir_price_data_df = palantir_price_data_df.sort_values(by='Date', ascending=True)
 
-# Parse date column into pandas datetime object and sort by date
-# Makes chronological calculations correct
-df['Date'] = pd.to_datetime(df['Date'], format='%m/%d/%Y')
-df = df.sort_values(by='Date')
+# Optionally show all rows when printing (can be commented out)
+pd.set_option('display.max_rows', None)
 
-# Remove currency symbols and convert to numeric float
-# Works for both dollar and pound signs
-# (add more to regex if needed for other currencies)
-df['Close/Last'] = df['Close/Last'].replace(r'[\$,£]', '', regex=True).astype(float)
+# Clean 'Close/Last' column, remove dollar signs, and convert to float
+palantir_price_data_df['Close/Last'] = palantir_price_data_df['Close/Last'].replace(r'[\$,£]', '', regex=True).astype(float)
 
-# Calculate daily price change (diff() shifts so first value is NaN)
-df['Daily Price Change'] = df['Close/Last'].diff()
+# Calculate daily price change as a new column
+palantir_price_data_df['Daily Price Change'] = palantir_price_data_df['Close/Last'].diff()
 
-# Get numpy array of daily changes, dropping the first NaN
-changes = df['Daily Price Change'].dropna().values
+# Convert daily price changes to a NumPy array, dropping the first NaN
+price_changes = palantir_price_data_df['Daily Price Change'].dropna().to_numpy()
 
-# --- 2. Measure Sort Times over All Data Points ---
+# Prepare to measure sort times for increasing n
 n_min = 7
-n_max = min(365, len(changes))  # Use up to 365 days, or your data's max
+n_max = min(365, len(price_changes))  # Use up to 365 points, or all if less
 n_values = np.arange(n_min, n_max + 1)
 sort_times = []
 
 for n in n_values:
-    arr = changes[:n]  # Use ALL data points for slice 0:n
-    start = time.perf_counter()
-    np.sort(arr)
-    end = time.perf_counter()
-    sort_times.append(end - start)
+    array_to_sort = price_changes[:n]
+    start_time = time.perf_counter()
+    sorted_array = np.sort(array_to_sort)
+    end_time = time.perf_counter()
+    sort_times.append(end_time - start_time)
 
-# --- 3. Scale Theoretical n log n for Visual Comparison ---
-# Find scaling factor to match the first measured sort time, so the curves overlay
-C = sort_times[0] / (n_values[0] * np.log(n_values[0]))
-nlogn_curve = C * n_values * np.log(n_values)
+# Scale the theoretical n log n curve for fair visual comparison
+scaling_constant = sort_times[0] / (n_values[0] * np.log(n_values[0]))
+nlogn_curve = scaling_constant * n_values * np.log(n_values)
 
-# --- 4. Plot Results ---
-plt.figure(figsize=(10, 6))
-plt.plot(n_values, sort_times, label='Measured sort time T', marker='.')
-plt.plot(n_values, nlogn_curve, linestyle='--', label=r'Scaled $n \log n$ (theory)')
-plt.xlabel('n (Number of days)')
-plt.ylabel('T (Sorting time, seconds)')
-plt.title('Sorting Time T vs n for Daily Price Changes')
+# Plotting the measured and theoretical sorting times
+plt.figure(figsize=(10, 5))
+plt.plot(n_values, sort_times, label='Measured sort time (T)', marker='o', linestyle='-', color='blue')
+plt.plot(n_values, nlogn_curve, linestyle='--', label=r'Scaled $n \log n$ (Theory)', color='red')
+plt.title('Sorting Time T vs n for Palantir Daily Price Changes')
+plt.xlabel('Number of Daily Price Changes Sorted (n)')
+plt.ylabel('Sorting Time (seconds)')
 plt.legend()
 plt.grid(True)
 plt.tight_layout()
