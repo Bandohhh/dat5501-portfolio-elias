@@ -3,51 +3,54 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 
-# Load the Palantir price data from a CSV file
-df = pd.read_csv('HistoricalData_1762772785970.csv')
+# --- 1. Load and Clean Data ---
+# The CSV filename is assumed to be in your working directory
+filename = 'HistoricalData_1762772785970.csv'
 
-# Parse dates and ensure ascending order
+df = pd.read_csv(filename)
+
+# Parse date column into pandas datetime object and sort by date
+# Makes chronological calculations correct
 df['Date'] = pd.to_datetime(df['Date'], format='%m/%d/%Y')
-df = df.sort_values(by='Date', ascending=True)
+df = df.sort_values(by='Date')
 
-# Clean and convert closing price column
-df['Close/Last'] = df['Close/Last'].replace('[\$,]', '', regex=True).astype(float)
+# Remove currency symbols and convert to numeric float
+# Works for both dollar and pound signs
+# (add more to regex if needed for other currencies)
+df['Close/Last'] = df['Close/Last'].replace(r'[\$,£]', '', regex=True).astype(float)
 
-# Calculate daily price changes
+# Calculate daily price change (diff() shifts so first value is NaN)
 df['Daily Price Change'] = df['Close/Last'].diff()
 
-# Remove the first NaN row from the diff operation
-daily_changes = df['Daily Price Change'].dropna().values
+# Get numpy array of daily changes, dropping the first NaN
+changes = df['Daily Price Change'].dropna().values
 
-# Set up arrays for timing sorting over increasing n
-n_values = np.arange(7, min(len(daily_changes), 366), 10)  # n from 7 to up to 365 by 10
+# --- 2. Measure Sort Times over All Data Points ---
+n_min = 7
+n_max = min(365, len(changes))  # Use up to 365 days, or your data's max
+n_values = np.arange(n_min, n_max + 1)
 sort_times = []
 
 for n in n_values:
-    sample = daily_changes[:n]
-    start = time.time()
-    np.sort(sample)
-    end = time.time()
+    arr = changes[:n]  # Use ALL data points for slice 0:n
+    start = time.perf_counter()
+    np.sort(arr)
+    end = time.perf_counter()
     sort_times.append(end - start)
 
-# Plotting T vs n and n log n scaling
+# --- 3. Scale Theoretical n log n for Visual Comparison ---
+# Find scaling factor to match the first measured sort time, so the curves overlay
+C = sort_times[0] / (n_values[0] * np.log(n_values[0]))
+nlogn_curve = C * n_values * np.log(n_values)
+
+# --- 4. Plot Results ---
 plt.figure(figsize=(10, 6))
-plt.plot(n_values, sort_times, label='Sort Time (seconds)', marker='o')
-
-# Overlay n log n complexity for reference
-scaled_nlogn = sort_times[0] * n_values * np.log(n_values) / (n_values[0] * np.log(n_values[0]))
-plt.plot(n_values, scaled_nlogn, label=r"Scaled $n \log n$", linestyle='--')
-
-plt.xlabel('n (Number of Days)')
-plt.ylabel('T (Time to Sort in Seconds)')
+plt.plot(n_values, sort_times, label='Measured sort time T', marker='.')
+plt.plot(n_values, nlogn_curve, linestyle='--', label=r'Scaled $n \log n$ (theory)')
+plt.xlabel('n (Number of days)')
+plt.ylabel('T (Sorting time, seconds)')
 plt.title('Sorting Time T vs n for Daily Price Changes')
 plt.legend()
 plt.grid(True)
+plt.tight_layout()
 plt.show()
-
-# Optional: display processed DataFrame
-print(df)
-
-
-
-
