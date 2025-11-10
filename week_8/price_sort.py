@@ -1,52 +1,56 @@
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import time
+import numpy as np
 
-# Load the CSV using your specified filename
+# Load the CSV 
 palantir_price_data_df = pd.read_csv('HistoricalData_1762772785970.csv')
-
-# Sort dates in ascending order and parse dates
+# Sort the dates in ascending order
 palantir_price_data_df['Date'] = pd.to_datetime(palantir_price_data_df['Date'], format='%m/%d/%Y')
-palantir_price_data_df = palantir_price_data_df.sort_values(by='Date', ascending=True)
+palantir_price_data_df_price_data_df = palantir_price_data_df.sort_values(by='Date', ascending=True)
 
-# Optionally show all rows when printing (can be commented out)
+# Setting to show all rows when printing the dataframe
 pd.set_option('display.max_rows', None)
 
-# Clean 'Close/Last' column, remove dollar signs, and convert to float
-palantir_price_data_df['Close/Last'] = palantir_price_data_df['Close/Last'].replace(r'[\$,£]', '', regex=True).astype(float)
+#print (asset_price_data_df)
 
-# Calculate daily price change as a new column
+# Calculate daily price change
+palantir_price_data_df['Close/Last'] = palantir_price_data_df['Close/Last'].replace('[\$,]', '', regex=True).astype(float) # Remove dollar signs and convert to float
+
 palantir_price_data_df['Daily Price Change'] = palantir_price_data_df['Close/Last'].diff()
+#print (asset_price_data_df)
 
-# Convert daily price changes to a NumPy array, dropping the first NaN
+
+# Move the price changes column to an array for plotting
 price_changes = palantir_price_data_df['Daily Price Change'].dropna().to_numpy()
+times = []
 
-# Prepare to measure sort times for increasing n
-n_min = 7
-n_max = min(365, len(price_changes))  # Use up to 365 points, or all if less
-n_values = np.arange(n_min, n_max + 1)
-sort_times = []
-
-for n in n_values:
-    array_to_sort = price_changes[:n]
+for i in range(7, len(price_changes)):
+    
+    array_to_sort = price_changes[:i]
+    
     start_time = time.perf_counter()
-    sorted_array = np.sort(array_to_sort)
+    # Sort the array
+    sorted_array = sorted(array_to_sort)
     end_time = time.perf_counter()
-    sort_times.append(end_time - start_time)
+    
+    time_taken = end_time - start_time
+    times.append(time_taken)
 
-# Scale the theoretical n log n curve for fair visual comparison
-scaling_constant = sort_times[0] / (n_values[0] * np.log(n_values[0]))
-nlogn_curve = scaling_constant * n_values * np.log(n_values)
+# Create x-axis values
+x_values = np.arange(7, len(times)+7)
 
-# Plotting the measured and theoretical sorting times
-plt.figure(figsize=(10, 5))
-plt.plot(n_values, sort_times, label='Measured sort time (T)', marker='o', linestyle='-', color='blue')
-plt.plot(n_values, nlogn_curve, linestyle='--', label=r'Scaled $n \log n$ (Theory)', color='red')
-plt.title('Sorting Time T vs n for Palantir Daily Price Changes')
-plt.xlabel('Number of Daily Price Changes Sorted (n)')
-plt.ylabel('Sorting Time (seconds)')
-plt.legend()
+# Calculate n log n values for comparison
+n_log_n = x_values * np.log(x_values) 
+
+# Plot the graph
+plt.figure(figsize=(8, 4))
+
+# Plot scatter 
+plt.scatter(x_values, times, marker='o', linestyle='-', color='blue')
+plt.title('Daily Price Changes')
+plt.xlabel('Number of Price Changes Sorted')
+plt.ylabel('Time')
 plt.grid(True)
 plt.tight_layout()
 plt.show()
