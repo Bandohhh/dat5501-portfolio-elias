@@ -1,56 +1,45 @@
 import pandas as pd
-import matplotlib.pyplot as plt
-import time
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import time
 
-# Load the CSV 
-palantir_price_data_df = pd.read_csv('HistoricalData_1762772785970.csv')
-# Sort the dates in ascending order
-palantir_price_data_df['Date'] = pd.to_datetime(palantir_price_data_df['Date'], format='%m/%d/%Y')
-palantir_price_data_df_price_data_df = palantir_price_data_df.sort_values(by='Date', ascending=True)
+# Set Seaborn style
+sns.set(style='whitegrid', context='talk')
 
-# Setting to show all rows when printing the dataframe
-pd.set_option('display.max_rows', None)
+# Load and clean data
+df = pd.read_csv('HistoricalData_1762772785970.csv')
+df['Date'] = pd.to_datetime(df['Date'], format='%m/%d/%Y')
+df.sort_values('Date', inplace=True)
 
-#print (asset_price_data_df)
+# Convert price column to float
+df['Close/Last'] = df['Close/Last'].replace('[\$,]', '', regex=True).astype(float)
 
 # Calculate daily price change
-palantir_price_data_df['Close/Last'] = palantir_price_data_df['Close/Last'].replace('[\$,]', '', regex=True).astype(float) # Remove dollar signs and convert to float
+df['Daily Price Change'] = df['Close/Last'].diff()
 
-palantir_price_data_df['Daily Price Change'] = palantir_price_data_df['Close/Last'].diff()
-#print (asset_price_data_df)
-
-
-# Move the price changes column to an array for plotting
-price_changes = palantir_price_data_df['Daily Price Change'].dropna().to_numpy()
-times = []
+# Prepare data for sorting time analysis
+price_changes = df['Daily Price Change'].dropna().to_numpy()
+timings = [
+    time.perf_counter() - time.perf_counter()  # placeholder for initial value
+    for _ in range(7)
+]
 
 for i in range(7, len(price_changes)):
-    
-    array_to_sort = price_changes[:i]
-    
-    start_time = time.perf_counter()
-    # Sort the array
-    sorted_array = sorted(array_to_sort)
-    end_time = time.perf_counter()
-    
-    time_taken = end_time - start_time
-    times.append(time_taken)
+    start = time.perf_counter()
+    sorted(price_changes[:i])
+    end = time.perf_counter()
+    timings.append(end - start)
 
-# Create x-axis values
-x_values = np.arange(7, len(times)+7)
+# X-axis values
+x = np.arange(7, len(timings))
 
-# Calculate n log n values for comparison
-n_log_n = x_values * np.log(x_values) 
+# Plotting
+plt.figure(figsize=(10, 5))
+sns.scatterplot(x=x, y=timings[7:], color='royalblue', edgecolor='white', s=80)
 
-# Plot the graph
-plt.figure(figsize=(8, 4))
-
-# Plot scatter 
-plt.scatter(x_values, times, marker='o', linestyle='-', color='blue')
-plt.title('Daily Price Changes')
-plt.xlabel('Number of Price Changes Sorted')
-plt.ylabel('Time')
-plt.grid(True)
+plt.title('Daily Price Changes', fontsize=16)
+plt.xlabel('Number of Price Changes Sorted', fontsize=14)
+plt.ylabel('Time (seconds)', fontsize=14)
 plt.tight_layout()
 plt.show()
