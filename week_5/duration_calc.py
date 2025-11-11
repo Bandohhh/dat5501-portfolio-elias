@@ -27,3 +27,30 @@ def calculate_duration_in_days():
         
         except ValueError: # Catch invalid date values
             print("Invalid date format. Please enter dates in YYYY-MM-DD format.")
+
+
+        while True:
+    # Loop until valid end date is entered
+          end_date_str = input(f"Please enter the end date (YYYY-MM-DD) or press enter to use today's date [{today}]: ") or str(today) # Default to today's date if input is empty/user presses enter
+        
+        if not date_pattern.match(end_date_str): # Validate end date format using regex
+            print("Invalid date format. Please enter dates in YYYY-MM-DD format.")
+            continue
+
+        try:
+
+            # Validate date format
+            end_date = np.datetime64(end_date_str, 'D')
+            
+            # Exit loop if end date is valid
+            break
+
+        except ValueError: # Catch invalid date format
+            print("Invalid date format. Please enter dates in YYYY-MM-DD format.")
+
+    # Calculate and return duration in days
+    duration = (end_date - start_date).astype(int) 
+    return duration
+
+# Example usage
+print(calculate_duration_in_days())
