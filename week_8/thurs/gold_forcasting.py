@@ -21,8 +21,8 @@ gold_price = gold_price.rename(columns={'Gold (New York Market Price) (Laurence 
 gold_price = gold_price[(gold_price['Year'] <= 2015) & (gold_price['Year'] >= 1915)]
 
 def n_polynomial_fit(order):
-    #Fit a polynomial of given order to the sample data 
-    coefficients = np.polyfit(gold_price['Year'], gold_price['Price'], order)
+    #Fit a polynomial of given order to the sample data & covariance available for uncertainity analysis
+    coefficients , covariance = np.polyfit(gold_price['Year'], gold_price['Price'], order, cov=True)
     polynomial = np.poly1d(coefficients)
 
     #Generate x values for plotting the fitted Curve
@@ -36,6 +36,7 @@ def n_polynomial_fit(order):
  
     #Plot the original data and fitted curve 
     plt.plot(x_values, y_values, color ='red', label=f'Polynomial Fit (order {order})')
+
 
 
     return polynomial
