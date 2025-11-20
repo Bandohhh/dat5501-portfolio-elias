@@ -41,7 +41,7 @@ def n_polynomial_fit(order):
     return polynomial
 
 #example usage : polyomial fit of order 3
-'''
+
 
 polynomial_fit = n_polynomial_fit(1)
 polynomial_fit = n_polynomial_fit(2)
@@ -53,8 +53,8 @@ polynomial_fit = n_polynomial_fit(6)
 polynomial_fit = n_polynomial_fit(7)
 polynomial_fit = n_polynomial_fit(8)
 polynomial_fit = n_polynomial_fit(9)
-'''
-polynomial_fit = n_polynomial_fit(5)
+
+
 #plot gold price data points & polynomial fit
 plt.scatter(gold_price['Year'], gold_price['Price'], label='Original Data', color='blue', s=10)
 plt.xlabel('Year')

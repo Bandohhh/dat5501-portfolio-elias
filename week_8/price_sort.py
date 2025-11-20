@@ -8,7 +8,7 @@ import time
 sns.set(style='whitegrid', context='talk')
 
 # Load and clean data
-df = pd.read_csv('HistoricalData_1762772785970.csv')
+df = pd.read_csv('week_8/HistoricalData_1762772785970.csv')
 df['Date'] = pd.to_datetime(df['Date'], format='%m/%d/%Y')
 df.sort_values('Date', inplace=True)
 
