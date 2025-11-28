@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-
+import tkinter as tk 
+from tkinter import ttk  
 
 
 
@@ -37,29 +38,38 @@ def ask_candidate_name(candidates) -> str:
     Returns:
         The confirmed candidate name.
     """
-    # Instead of relying on free-text input, show a numbered list of candidates
-    # so the user can pick by number and avoid spelling mistakes.
+    # Use a small GUI window with a drop-down list so the user
+    # can only select valid candidate names and cannot type manually.
     candidate_list = sorted(list(candidates))
 
-    while True:
-        print("\nPlease choose a candidate from the list below:\n")
-        for i, name in enumerate(candidate_list, start=1):
-            print(f"{i}. {name}")
+    selected_name = {"value": None}
 
-        choice = input("\nEnter the number of the candidate you want to analyse: ")
+    def on_confirm():
+        # Read the current selection from the combobox and store it,
+        # then close the window so the script can continue.
+        selected_name["value"] = combo.get()
+        root.destroy()
 
-        if not choice.isdigit():
-            print("Please enter a number.")
-            continue
+    root = tk.Tk()
+    root.title("Select a candidate")
+    root.geometry("400x120")
 
-        index = int(choice)
+    label = tk.Label(root, text="Please select a candidate from the list:")
+    label.pack(pady=5)
 
-        if 1 <= index <= len(candidate_list):
-            selected = candidate_list[index - 1]
-            print(f"You have selected: {selected}")
-            return selected
-        else:
-            print("Number out of range, please try again.")
+    combo = ttk.Combobox(root, values=candidate_list, state="readonly")
+    combo.pack(pady=5)
+    if candidate_list:
+        combo.current(0)  # pre-select the first candidate
+
+    button = tk.Button(root, text="Confirm selection", command=on_confirm)
+    button.pack(pady=5)
+
+    # Start the GUI event loop and wait until the window is closed
+    root.mainloop()
+
+    # After the window is closed, return the selected name
+    return selected_name["value"]
 
 
 
@@ -119,7 +129,7 @@ def plot_state_fraction_of_state(state_fraction_of_state: pd.Series, candidate: 
         kind="bar",
         title=f"Fraction of state votes for {candidate}",
         edgecolor="black",
-        color="skyblue",  # Slight customisation for clarity
+        color="skyblue",  #customisation for clarity
     )
     ax.set_xlabel("State")
     ax.set_ylabel("Fraction of State Votes")
