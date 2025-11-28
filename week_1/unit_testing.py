@@ -1,7 +1,3 @@
-'''print('How old are you? ')
-print('What is your name? ')
-print('What is your favorite color? ') ''' 
-
 import pytest
 from src.math_ops import add_two
 
