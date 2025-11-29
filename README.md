@@ -145,5 +145,30 @@ Summary:
 A collection of additional lab exercises and exploratory code used to strengthen understanding of Python fundamentals and testing.
 
 
+| Category             | Key Packages                           | Purpose                                 |
+| -------------------- | -------------------------------------- | --------------------------------------- |
+| **Core Python**      | `math`, `datetime`, `unittest`, `time` | Base logic, dates, and testing          |
+| **Data Analysis**    | `numpy`, `pandas`                      | Numerical computing and data wrangling  |
+| **Visualisation**    | `matplotlib`                           | Graphs, charts, and trend plots         |
+| **GUI Development**  | `tkinter`, `tkcalendar`                | Calendar widgets and GUI applications   |
+| **Machine Learning** | `scikit-learn`                         | Decision tree classifier, regression    |
+| **Testing & CI**     | `pytest`                               | Unit testing and continuous integration |
+| **Automation**       | `.circleci`, `.github/workflows`       | Auto-test and deployment pipeline       |
+
+Key Skills & Coding Techniques
+
+Modular design and function decomposition
+
+Object-oriented programming (selected weeks)
+
+Data cleaning, transformation, and visualisation
+
+Model training & evaluation with Scikit-learn
+
+GUI programming using Tkinter
+
+Automation and testing with Pytest and CI
+
+Ethical & sustainable handling of datasets (no personal data used)
 
 
