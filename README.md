@@ -6,6 +6,8 @@ Module: DAT5501
 This repository contains weekly lab exercises, projects and independent/group tasks completed for DAT5501.
 Each week focuses on a new Python or data-analysis concept, progressing from programming fundamentals to applied machine learning and automation.
 
+Throughout my main repository, dat5501-portfolio-elias, I have shown evidence of the key Knowledge, Skills and Behaviours set out in the DAT5501 module. I applied different types of data analysis (S49) in the weekly lab notebooks, using exploratory and confirmatory techniques (S53) to clean, process and interpret datasets. My end to end workflow, from data preparation to modelling and evaluation, demonstrates an understanding of how to use evidence and analytics to support decision making (K57). The work includes descriptive and predictive modelling examples, which I explained using charts and clear summaries to communicate results effectively to both technical and non-technical audiences (S50). I identified and addressed common barriers to analysis such as missing data, inconsistent formats and unclear requirements (K53, S51), showing how these can be resolved through validation checks and modular code. The documentation and project structure also show how data analytics can improve efficiency and outputs (K59), and I reflected on the ethical handling of data and the importance of avoiding bias in model design (K60). Finally, by using version control, automated testing and simple continuous-integration workflows, I analysed data using industry-standard tools and demonstrated reliable, reproducible results (S55).
+
 
 # Weekly Summary of labs 
 
@@ -74,6 +76,7 @@ Each week focuses on a new Python or data-analysis concept, progressing from pro
 | Version Control | Git & GitHub | Repository management |
 
 ---
+
 
 # Running the Code
 
