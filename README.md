@@ -7,10 +7,7 @@ This repository contains weekly lab exercises, projects and independent/group ta
 Each week focuses on a new Python or data-analysis concept, progressing from programming fundamentals to applied machine learning and automation.
 
 
-
-
-
-# Weekly Summary
+# Weekly Summary of labs 
 
 # Week 1 – Version Control and Unit Testing
 - Practised Git branching, commits and merging.  
@@ -88,20 +85,6 @@ Each week focuses on a new Python or data-analysis concept, progressing from pro
    pip install numpy pandas matplotlib scikit-learn tkcalendar pytest
 
 
-Key Skills & Coding Techniques
 
-Modular design and function decomposition
-
-Object-oriented programming (selected weeks)
-
-Data cleaning, transformation, and visualisation
-
-Model training & evaluation with Scikit-learn
-
-GUI programming using Tkinter
-
-Automation and testing with Pytest and CI
-
-Ethical & sustainable handling of datasets (no personal data used)
 
 
