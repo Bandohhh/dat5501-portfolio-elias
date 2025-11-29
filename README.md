@@ -6,154 +6,87 @@ Module: DAT5501
 This repository contains weekly lab exercises, projects and independent/group tasks completed for DAT5501.
 Each week focuses on a new Python or data-analysis concept, progressing from programming fundamentals to applied machine learning and automation.
 
-**Week 1 — Version Control & Unit Testing**
-
-Files:
-
-version_control_practice.py
-
-unit_testing.py
-
-Summary:
-Introduced Git basics (commits, branches) and Python’s built in unittest module.
-Scripts demonstrate defining simple arithmetic or logical functions and testing them for correctness.
-
-Packages: unittest, math (stdlib)
-Techniques: version control, assertions, test-driven development.
-
-**Week 2 — Compound Interest & Financial Modelling**
-
-File: week_2/comp_int.py
-
-Summary:
-A financial calculator that computes compound interest and time required for an investment to double using logarithmic functions.
-Demonstrates loops, functions, and user input.
-
-Packages: math
-Techniques:
-
-Function decomposition (compound_interest(), investment_double_time())
-
-For loops and formatted string output
-
-Real world formula implementation
-
-
-**Week 3 — Calendar & Date Utilities**
-
-Folder: week_3/
-
-Summary:
-Worked with date/time modules and basic GUI design using Tkinter.
-Created simple programs to print or display calendars interactively.
-
-Packages: datetime, calendar, tkinter
-Techniques: CLI design, GUI layout, function reuse.
-
-**Week 5 — GUI Development & Data Analysis**
-Creating a duration caluclator and a Graphical User Interface (GUI) 
-US election analysis, creating charts and a user interface that would show the proportion of votes each candidates in the US election recieved in each state
-Folders:
-
-week_5/duration_task/
-
-week_5/us_election/
-
-Summary:
-
-Duration Task: built a Tkinter + tkcalendar GUI to calculate the number of days between two dates.
-
-US Election Analysis: analysed voting data from CSV files, plotted histograms, and summarised results.
-
-Packages: tkinter, tkcalendar, pandas, matplotlib
-Techniques:
-
-GUI event handling and widget control
-
-Reading & cleaning CSV data
-
-Plotting histograms and bar charts
 
 
 
-**Week 8 — Algorithm Performance & Forecasting**
-Plotting and predictting gold prices and using the chi squared values for projections of data, doing forcasting and projectting future gold prices using polynomials.
 
-Project for chi squared values is under the thurs folder within week 8
+# Weekly Summary
 
-Files:
-
-price_sort.py
-
-HistoricalData_1762772785970.csv
-
-thurs/ (supporting scripts)
-
-Summary:
-Analysed the computational performance of sorting operations compared to the theoretical n log n complexity.
-Performed polynomial fitting and forecasting using stock or population data.
-
-Packages: numpy, pandas, matplotlib, time
-Techniques:
-
-Complexity analysis and timing functions
-
-Polynomial fitting & model evaluation (χ², BIC) chi^2
-
-Data visualisation and interpretation
-
-**Week 10 — Machine Learning & Decision Trees**
-Ceaning and sorting data and using machiene learning techniques to create a decision tree based of student results and predicting wether they would pass an exam or not.
-
-Files:
-
-decision_tree.py
-
-real_estate_ml.py
-
-Datasets: student-por.csv, real_estate_valuation_data set.csv
-
-Summary:
-Implemented two small ML pipelines:
-
-Student Performance Classifier — predicts pass/fail outcomes using a decision tree.
-
-Real Estate Valuation Model — regression model predicting house prices.
-
-Both include data loading, preprocessing, model training, and accuracy evaluation.
-
-Packages: pandas, scikit-learn, matplotlib
-Techniques:
-
-DecisionTreeClassifier & Regression
-
-Train/test split, accuracy evaluation
-
-Feature importance and visualisation (plot_tree)
-
-Data ethics: no personal data; open UCI datasets used
-
-**Labs (Practice Work)**
-
-Folder: labs/
-
-lab-02-unit-testing/: reinforces TDD and assertions
-
-Misc .vscode/ config (editor setup)
-
-Summary:
-A collection of additional lab exercises and exploratory code used to strengthen understanding of Python fundamentals and testing.
+# Week 1 – Version Control and Unit Testing
+- Practised Git branching, commits and merging.  
+- Created and tested small Python functions using `unittest`.  
+- **Focus:** test-driven development and version control fundamentals.  
+- **Libraries:** `unittest`, `math`.
 
 
-| Category             | Key Packages                           | Purpose                                 |
-| -------------------- | -------------------------------------- | --------------------------------------- |
-| **Core Python**      | `math`, `datetime`, `unittest`, `time` | Base logic, dates, and testing          |
-| **Data Analysis**    | `numpy`, `pandas`                      | Numerical computing and data wrangling  |
-| **Visualisation**    | `matplotlib`                           | Graphs, charts, and trend plots         |
-| **GUI Development**  | `tkinter`, `tkcalendar`                | Calendar widgets and GUI applications   |
-| **Machine Learning** | `scikit-learn`                         | Decision tree classifier, regression    |
-| **Testing & CI**     | `pytest`                               | Unit testing and continuous integration |
-| **Automation**       | `.circleci`, `.github/workflows`       | Auto-test and deployment pipeline       |
+# Week 2 – Compound Interest and Investment Modelling
+- Wrote a program that calculates compound interest and the time needed for an investment to double.  
+- Demonstrated user input, loops, formatted outputs and basic use of logarithms.  
+- **Focus:** mathematical reasoning and function design.  
+- **Libraries:** `math`.
+
+
+# Week 3 – Date and Calendar Utilities
+- Explored the `calendar` and `datetime` modules.  
+- Produced a small CLI and experimented with Tkinter for displaying simple calendars.  
+- **Focus:** working with time data and user interaction through GUIs.  
+- **Libraries:** `calendar`, `datetime`, `tkinter`.
+
+
+# Week 5 – GUI and Data Visualisation
+- Built a GUI date duration calculator using **Tkinter** and **tkcalendar**.  
+- Analysed US election data with pandas and visualised results with matplotlib.  
+- **Focus:** event-driven programming and using visual output to present data.  
+- **Libraries:** `pandas`, `matplotlib`, `tkinter`, `tkcalendar`.
+
+
+# Week 8 – Algorithm Performance and Forecasting
+- Compared the speed of sorting operations against the theoretical *n log n* curve.  
+- Performed basic polynomial fitting and forecasting on time-series data.  
+- **Focus:** algorithmic complexity, numerical modelling and data plotting.  
+- **Libraries:** `numpy`, `pandas`, `matplotlib`, `time`.
+
+
+
+# Week 10 – Machine Learning Applications
+- Created two machine learning workflows:  
+  - `decision_tree.py`: student performance classifier using UCI data.  
+  - `real_estate_ml.py`: regression model predicting house prices.  
+- Included preprocessing, model training, evaluation and tree visualisation.  
+- **Focus:** supervised learning, feature importance and evaluation metrics.  
+- **Libraries:** `pandas`, `scikit-learn`, `matplotlib`.
+
+
+# Duration Calculator – Mini Project
+- A small standalone project structured with `/src` and `/tests`.  
+- Demonstrates modular design, pytest configuration and requirements management.  
+- **Focus:** testing, automation and clean project setup.  
+- **Libraries:** `pytest`, `tkcalendar`.
+
+
+# Tools and Concepts Used
+
+| Area | Key Tools / Libraries | Purpose |
+|------|-----------------------|----------|
+| Core Python | `math`, `datetime`, `os`, `time` | General scripting and logic |
+| Data Analysis | `numpy`, `pandas` | Working with datasets |
+| Visualisation | `matplotlib` | Plotting and presenting results |
+| GUI Development | `tkinter`, `tkcalendar` | Building user interfaces |
+| Machine Learning | `scikit-learn` | Classification and regression |
+| Testing & Automation | `unittest`, `pytest`, CI configs | Ensuring code reliability |
+| Version Control | Git & GitHub | Repository management |
+
+---
+
+# Running the Code
+
+1. **Set up a virtual environment**
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate
+   pip install -U pip
+   pip install numpy pandas matplotlib scikit-learn tkcalendar pytest
+
 
 Key Skills & Coding Techniques
 
