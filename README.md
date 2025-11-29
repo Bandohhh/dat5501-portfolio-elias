@@ -17,3 +17,16 @@ https://github.com/Bandohhh/Continuous_Integration # where i completed some of t
 | FLAGSHIP mini-project  |  ✅  |  ✅  |  ✅  |  ✅  |  ✅  |  ✅  |  ✅  |  ✅  |  ✅  |  ✅  |
 | Continuous_Integration |     |     |     |     |     |     |  ✅  |     |     |     |
 | DAT5501 labs           |  ✅  |  ✅  |  ✅  |  ✅  |  ✅  |  ✅  |  ✅  |  ✅  |  ✅  |  ✅  |
+
+Ethics, risk & compliance (summary)
+
+No personal data used. Teaching/synthetic datasets. Documented assumptions and limitations.
+ GDPR/Data Protection principles respected.
+
+Reflection (highlights)
+
+Adopted CI and pre-commit hygiene which improved clarity and reliability.
+
+Added model/analysis card and “how to run/test” for reproducibility and communication.
+
+Managed work with Issues, a Project board, conventional commits, and tagged releases to mirror professional practice.
