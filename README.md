@@ -1,6 +1,33 @@
 # DAT5501 Portfolio
 
-Purpose: portfolio of assessed work produced this year for DAT5501, evidencing code clarity, documentation, technical application, and iterative repository management.
+This repository contains my weekly lab exercises and independent tasks completed for the **DAT5501** module.  
+Each folder demonstrates a different programming concept, data analysis technique, or software engineering skill.  
+The portfolio evidences my progression from core Python fundamentals to applied analytics, testing, and automation.
+
+
+**Week1** 
+testing simple print statements
+unit testing – basic function to add two numbers
+unit_testing – unit tests using unittest
+GitHub activity: practice with commits, branching, and merging. Also setting up developer enviroment and GitHub
+Version control 
+
+**Week2**
+Creating a compound interest calculator that built on Python to calculate compound interest and estimate how long it takes an investment to double.
+
+continoius intergrartion using circle CI
+
+**Week5**
+Creating a duration caluclator and a Graphical User Interface (GUI) 
+US election analysis, creating charts and a user interface that would show the proportion of votes each candidates in the US election recieved in each state
+
+**Week8**
+Plotting and predictting gold prices and using the chi squared values for projections of data 
+
+**Week 10**
+
+Ckeaning and sorting data and using machiene learning techniques to create a decision tree based of student results and predicting wether they would pass an exam or not.
+
 
 ## Quick start
 ```bash
