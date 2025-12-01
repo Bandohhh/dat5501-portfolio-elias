@@ -22,7 +22,7 @@ gold_price = gold_price.rename(
 # Create subsample: last 100 years, no last 10 years
 gold_price = gold_price[(gold_price['Year'] <= 2015) & (gold_price['Year'] >= 1915)]
 
-# --- UPDATED FUNCTION DEFINITION STARTS HERE ---
+
 def n_polynomial_fit(order):
     # Check: You need at least (order + 1) data points to fit this polynomial safely!
     if len(gold_price) <= order:
@@ -50,7 +50,7 @@ def n_polynomial_fit(order):
     plt.plot(x_values, y_values, color='red', label=f'Polynomial Fit (order {order})')
 
     return polynomial, covariance
-# --- FUNCTION DEFINITION ENDS HERE ---
+
 
 # Print to verify the data size before fitting polynomials
 print(f"Total rows: {len(gold_price)}")
